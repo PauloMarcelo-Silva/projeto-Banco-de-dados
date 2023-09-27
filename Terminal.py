@@ -45,4 +45,5 @@ while(True):
     elif opcao == 3:
         crud = CRUD()
         crud.pandas_print()
+        print("apareceu")
 
