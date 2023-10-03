@@ -21,6 +21,16 @@ class CRUD:
         
     def buscar_nome(self,comando):
         self.cursor.execute(comando)
+        result = self.cursor.fetchall()
+        if result:
+            colunas = [desc[0] for desc in self.cursor.description]
+
+            df = pd.DataFrame(result, columns=colunas)
+
+            # Exiba o DataFrame
+            print(df)
+        else:
+            print("Nenhum resultado encontrado.")
         
     def listar_tudo(self,comando):
         self.cursor.execute(comando)
