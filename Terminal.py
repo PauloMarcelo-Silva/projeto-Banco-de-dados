@@ -90,4 +90,4 @@ while(True):
     elif opcao == 6 :
         opcao_exibir= int(input("Digite o codigo do produto:"))
         crud= CRUD()
-        crud.exibiir_produto(f'SELECT * FROM estoque WHERE ID_Produto= {opcao_exibir};')
+        crud.exibiir_produto(f'SELECT * FROM estoque WHERE ID_Produto= "{opcao_exibir}";')
