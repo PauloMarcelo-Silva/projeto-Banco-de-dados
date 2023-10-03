@@ -68,3 +68,7 @@ class CRUD:
     def remover(self,comando):
         self.cursor.execute(comando)
         self.conexao.commit()
+
+    def exibiir_produto(self,comando):
+        self.cursor.execute(comando)
+        self.conexao.commit()

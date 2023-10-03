@@ -11,7 +11,8 @@ while(True):
                 opçao 2 = alterar
                 opçao 3 = Pesquisar
                 Opção 4 = Visualizar itens na lista
-                Opção 5 = Remover \n"""))
+                Opção 5 = Remover
+                Opção 6 = Exibir um produto \n"""))
                 
     if opcao == 1:
         nome = str(input("Digite o nome do produto: "))
@@ -86,3 +87,7 @@ while(True):
         
         crud = CRUD()
         crud.remover(remover)
+    elif opcao == 6 :
+        opcao_exibir= int(input("Digite o codigo do produto:"))
+        crud= CRUD()
+        crud.exibiir_produto(f'SELECT * FROM estoque WHERE ID_Produto= {opcao_exibir};')
