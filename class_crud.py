@@ -6,7 +6,7 @@ class CRUD:
         self.conexao = mysql.connector.connect(
             host='127.0.0.1',
             user='root',
-            password='homenverde1',
+            password='159357123',
             database='empresa_queijos',
         )
         self.cursor = self.conexao.cursor()
@@ -64,3 +64,7 @@ class CRUD:
             print(df)
         else:
             print("Nenhum resultado encontrado.")
+    
+    def remover(self,comando):
+        self.cursor.execute(comando)
+        self.conexao.commit()

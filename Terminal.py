@@ -10,7 +10,9 @@ while(True):
                 opção 1 = Adicionar
                 opçao 2 = alterar
                 opçao 3 = Pesquisar
-                Opção 4 = Visualizar itens na lista.\n"""))
+                Opção 4 = Visualizar itens na lista
+                Opção 5 = Remover \n"""))
+                
     if opcao == 1:
         nome = str(input("Digite o nome do produto: "))
         tipo = str(input("Digite o tipo do produto: "))
@@ -64,5 +66,23 @@ while(True):
     elif opcao == 4:
         crud = CRUD()
         crud.pandas_print()
-        print("apareceu")
+    
 
+    elif opcao == 5:
+        opcao_remove = int(input("""Por qual opção você deseja pesquisar:
+                                1 = Nome
+                                2 = Tipo
+                                3 = Fornecedor\n"""))
+        crud = CRUD()
+        if opcao_remove == 1:
+            remove_nome = str(input("Digite o nome que você deseja pesquisar: "))
+            remover = f'DELETE FROM estoque WHERE Nome = "{remove_nome}";'
+        elif opcao_remove == 2:
+            remove_Tipo = str(input("Digite o tipo do produto que você deseja pesquisar: "))
+            remover= f'DELETE  FROM estoque WHERE Tipo = "{remove_Tipo}";'
+        elif opcao_remove == 3:
+            remove_Fornecedor = str(input("Digite os produtos do fornecedor que você deseja pesquisar: "))
+            remover = f'DELETE  FROM estoque WHERE Fornecedor = "{remove_Fornecedor}";'
+        
+        crud = CRUD()
+        crud.remover(remover)
