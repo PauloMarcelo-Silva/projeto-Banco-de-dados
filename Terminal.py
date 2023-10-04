@@ -6,13 +6,13 @@ import os
 print("---------------- Bem Vindo ao Estoque-----------------")
 
 while(True):
-    opcao = int(input("""Digite a opção:
+    opcao = int(input("""Menu:
                 opção 1 = Adicionar
                 opçao 2 = alterar
                 opçao 3 = Pesquisar
                 Opção 4 = Visualizar itens na lista
                 Opção 5 = Remover
-                Opção 6 = Exibir um produto \n"""))
+                Opção 6 = Exibir um produto \n""""Digite uma opção: "))
                 
     if opcao == 1:
         nome = str(input("Digite o nome do produto: "))
