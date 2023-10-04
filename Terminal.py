@@ -19,75 +19,66 @@ while(True):
         tipo = str(input("Digite o tipo do produto: "))
         fornecedor = str(input("Digite o fornecedor do produto: "))
         peso = float(input("Digite o peso do produto: "))
-        preco = 0
-
-        if tipo == "Queijo":
-            preco = peso * 58.20
-        else:
-            preco = peso * 24.50
-    
         crud = CRUD()
-        comando_adicionar = f'INSERT INTO Estoque (Nome, Tipo, Fornecedor, Peso, Preço) VALUES ("{nome}", "{tipo}", "{fornecedor}", {peso}, {preco});'
-        crud.inserir(comando_adicionar)
+        crud.inserir(nome,tipo,fornecedor,peso)
         crud.fechar()
         os.system('cls')
 
     elif opcao == 2:
         coluna = [None,'Nome','Tipo','Fornecedor','Peso']
-        coluna_alt = int(input("""Oque vc deseja alterar?
+        os.system('cls')
+        print("""Oque vc deseja alterar?
                         Nome = 1
                         Tipo = 2
                         Fornecedor = 3
-                        Peso = 4\n"""))
-        alteracao = str(input("Qual seria a alteração? \n "))
-        oque = int(input("Qual Id do produto? \n"))
+                        Peso = 4\n""")
+        coluna_alt = int(input("Digite a opção: "))
+        onde = int(input("Digite o ID do profuto: "))
+        alteracao = str(input("Digite a alteração: "))
+        
         
         crud = CRUD()
-        comando_alterar = f'UPDATE estoque SET {coluna[coluna_alt]} = "{alteracao}" WHERE ID_Produto = {oque}'
-        crud.alterar(comando_alterar)
+        
+        crud.alterar(coluna[coluna_alt],alteracao,onde)
         os.system('cls')
 
     elif opcao == 3:
-        opcao_pesquisa = int(input("""Por qual opção você deseja pesquisar:
+        os.system('cls')
+        print("""Por qual opção você deseja pesquisar:
                                 1 = Nome
                                 2 = Tipo
-                                3 = Fornecedor\n"""))
+                                3 = Fornecedor\n""")
+        opcao_pesquisa = int(input("Digte a opcao: "))
+        
         crud = CRUD()
-        if opcao_pesquisa == 1:
-            pesquisa_nome = str(input("Digite o nome que você deseja pesquisar: "))
-            opcao_pesquisa = f'SELECT * FROM estoque WHERE Nome = "{pesquisa_nome}";'
-        elif opcao_pesquisa == 2:
-            pesquisa_Tipo = str(input("Digite o tipo do produto que você deseja pesquisar: "))
-            opcao_pesquisa= f'SELECT * FROM estoque WHERE Tipo = "{pesquisa_Tipo}";'
-        elif opcao_pesquisa == 3:
-            pesquisa_Fornecedor = str(input("Digite os produtos do fornecedor que você deseja pesquisar: "))
-            opcao_pesquisa = f'SELECT * FROM estoque WHERE Fornecedor = "{pesquisa_Fornecedor}";'
+        
         crud.buscar_nome(opcao_pesquisa)
+        input("\n\nDigite qualuqer tecla para voltar ao menu.")
+        os.system('cls')
+
         
     elif opcao == 4:
+        os.system('cls')
         crud = CRUD()
-        crud.pandas_print()
-    
+        crud.listarTudo()
+        input("\n\nDigite qualuqer tecla para voltar ao menu.")
+        os.system('cls')
 
     elif opcao == 5:
-        opcao_remove = int(input("""Por qual opção você deseja pesquisar:
-                                1 = Nome
-                                2 = Tipo
-                                3 = Fornecedor\n"""))
+        os.system('cls')
+        print("""Por qual opção você deseja remover:
+                                1 = ID
+                                2 = Nome
+                                3 = Tipo
+                                4 = Fornecedor\n""")
+        opcao_remove = int(input("Digite a opção: "))
         crud = CRUD()
-        if opcao_remove == 1:
-            remove_nome = str(input("Digite o nome que você deseja pesquisar: "))
-            remover = f'DELETE FROM estoque WHERE Nome = "{remove_nome}";'
-        elif opcao_remove == 2:
-            remove_Tipo = str(input("Digite o tipo do produto que você deseja pesquisar: "))
-            remover= f'DELETE  FROM estoque WHERE Tipo = "{remove_Tipo}";'
-        elif opcao_remove == 3:
-            remove_Fornecedor = str(input("Digite os produtos do fornecedor que você deseja pesquisar: "))
-            remover = f'DELETE  FROM estoque WHERE Fornecedor = "{remove_Fornecedor}";'
+        crud.remover(opcao_remove)
+        os.system('cls')
         
-        crud = CRUD()
-        crud.remover(remover)
     elif opcao == 6 :
         opcao_exibir= int(input("Digite o codigo do produto:"))
+        os.system('cls')
         crud= CRUD()
-        crud.exibiir_produto(f'SELECT * FROM estoque WHERE ID_Produto= "{opcao_exibir}";')
+        crud.exibiir_produto(opcao_exibir)
+        input("\n\nDigite qualuqer tecla para voltar ao menu.")
