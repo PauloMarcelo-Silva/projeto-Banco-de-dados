@@ -19,7 +19,6 @@ class CRUD:
         else:
             preco = peso * 24.50
     
-        
         comando_adicionar = f'INSERT INTO Estoque (Nome, Tipo, Fornecedor, Peso, Preço) VALUES ("{nome}", "{tipo}", "{fornecedor}", {peso}, {preco});'
         self.cursor.execute(comando_adicionar)
         self.conexao.commit()
@@ -29,42 +28,17 @@ class CRUD:
         self.cursor.execute(comando_alterar)
         self.conexao.commit()
         
-    def buscar_nome(self,opcao_pesquisa,):
-        if opcao_pesquisa == 1:
-            pesquisa_nome = str(input("Digite o nome que você deseja pesquisar: "))
-            opcao_pesquisa = f'SELECT * FROM estoque WHERE Nome = "{pesquisa_nome}";'
-        elif opcao_pesquisa == 2:
-            pesquisa_Tipo = str(input("Digite o tipo do produto que você deseja pesquisar: "))
-            opcao_pesquisa= f'SELECT * FROM estoque WHERE Tipo = "{pesquisa_Tipo}";'
-        elif opcao_pesquisa == 3:
-            pesquisa_Fornecedor = str(input("Digite os produtos do fornecedor que você deseja pesquisar: "))
-            opcao_pesquisa = f'SELECT * FROM estoque WHERE Fornecedor = "{pesquisa_Fornecedor}";'
-        os.system('cls')
-        self.cursor.execute(opcao_pesquisa)
+    def buscar_nome(self,opcao_pesquisa,busca):
+        pesquisa = f'SELECT * FROM estoque WHERE {opcao_pesquisa} = "{busca}";'
+        self.cursor.execute(pesquisa)
 
         result = self.cursor.fetchall()
-        if result:
-            colunas = [desc[0] for desc in self.cursor.description]
-
-            df = pd.DataFrame(result, columns=colunas)
-
-            # Exiba o DataFrame
-            print(df)
-        else:
-            print("Nenhum resultado encontrado.")
         
-    def listar_tudo(self,comando):
-        self.cursor.execute(comando)
-        result = self.cursor.fetchall()
-        return result
+        colunas = [desc[0] for desc in self.cursor.description]
+
+        df = pd.DataFrame(result, columns=colunas)
+        return df
     
-    def exibir_um(self,comando):
-        self.cursor.execute(comando)
-        
-    def deletar(self,comando):
-        self.cursor.execute(comando)
-        self.conexao.commit()
-        
     def fechar(self):
         self.cursor.close()
         self.conexao.close()
@@ -72,46 +46,29 @@ class CRUD:
     def listarTudo(self):
         self.cursor.execute("select * from estoque;")
         result = self.cursor.fetchall()
-
-        # Verifique se há algum resultado
-        if result:
-            # Recupere os nomes das colunas
-            colunas = [desc[0] for desc in self.cursor.description]
-
-            # Crie um DataFrame Pandas com os resultados e nomes das colunas
-            df = pd.DataFrame(result, columns=colunas)
-
-            # Exiba o DataFrame
-            print(df)
-        else:
-            print("Nenhum resultado encontrado.")
-    
-    def remover(self,opcao_remove):
-        if opcao_remove == 1:
-            remove_nome = str(input("Digite o ID do produto que você deseja remover: "))
-            remover = f'DELETE FROM estoque WHERE ID_Produto = "{remove_nome}";'
-        elif opcao_remove == 2:
-            remove_nome = str(input("Digite o nome que você deseja remover: "))
-            remover = f'DELETE FROM estoque WHERE Nome = "{remove_nome}";'
-        elif opcao_remove == 3:
-            remove_Tipo = str(input("Digite o tipo do produto que você deseja remover: "))
-            remover= f'DELETE  FROM estoque WHERE Tipo = "{remove_Tipo}";'
-        elif opcao_remove == 3:
-            remove_Fornecedor = str(input("Digite os produtos do fornecedor que você deseja remover: "))
-            remover = f'DELETE  FROM estoque WHERE Fornecedor = "{remove_Fornecedor}";'
+        colunas = [desc[0] for desc in self.cursor.description]
         
-        self.cursor.execute(remover)
+        df = pd.DataFrame(result,columns=colunas)
+        return df
+        
+    def remover(self,opcao_remove,remove):
+        if type(remove) == "float":
+            comando = f'DELETE  FROM estoque WHERE {opcao_remove} = {remove};'
+        else:
+            comando = f'DELETE  FROM estoque WHERE {opcao_remove} = "{remove}";'
+
+        self.cursor.execute(comando)
         self.conexao.commit()
 
-    def exibiir_produto(self,opcao_exibir):
-        self.cursor.execute(f'SELECT * FROM estoque WHERE ID_Produto= "{opcao_exibir}";')
-        result = self.cursor.fetchall()
-        if result:
-            colunas = [desc[0] for desc in self.cursor.description]
+    # def exibiir_produto(self,opcao_exibir):
+    #     self.cursor.execute(f'SELECT * FROM estoque WHERE ID_Produto= "{opcao_exibir}";')
+    #     result = self.cursor.fetchall()
+    #     if result:
+    #         colunas = [desc[0] for desc in self.cursor.description]
 
-            df = pd.DataFrame(result, columns=colunas)
+    #         df = pd.DataFrame(result, columns=colunas)
 
-            # Exiba o DataFrame
-            print(df)
-        else:
-            print("Nenhum resultado encontrado.")
+    #         # Exiba o DataFrame
+    #         print(df)
+    #     else:
+    #         print("Nenhum resultado encontrado.")

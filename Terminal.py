@@ -33,7 +33,7 @@ while(True):
                         Fornecedor = 3
                         Peso = 4\n""")
         coluna_alt = int(input("Digite a opção: "))
-        onde = int(input("Digite o ID do profuto: "))
+        onde = int(input("Digite o ID do produto: "))
         alteracao = str(input("Digite a alteração: "))
         
         
